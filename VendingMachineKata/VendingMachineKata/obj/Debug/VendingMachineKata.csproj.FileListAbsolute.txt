@@ -1,0 +1,4 @@
+c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKata\bin\Debug\VendingMachineKata.dll
+c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKata\bin\Debug\VendingMachineKata.pdb
+c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKata\obj\Debug\VendingMachineKata.dll
+c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKata\obj\Debug\VendingMachineKata.pdb

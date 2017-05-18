@@ -1,0 +1,7 @@
+c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKataTests\obj\Debug\VendingMachineKataTests.csprojResolveAssemblyReference.cache
+c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKataTests\bin\Debug\VendingMachineKataTests.dll
+c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKataTests\bin\Debug\VendingMachineKataTests.pdb
+c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKataTests\bin\Debug\VendingMachineKata.dll
+c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKataTests\bin\Debug\VendingMachineKata.pdb
+c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKataTests\obj\Debug\VendingMachineKataTests.dll
+c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKataTests\obj\Debug\VendingMachineKataTests.pdb
