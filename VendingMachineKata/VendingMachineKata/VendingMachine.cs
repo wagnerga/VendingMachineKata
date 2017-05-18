@@ -12,13 +12,15 @@ namespace VendingMachineKata
         public List<Coin> CoinReturn { get; set; }
         private string _display { get; set; }
         public List<Product> Products { get; set; }
+        private decimal _totalAmount { get; set; }
 
-        public VendingMachine(decimal amountInserted, List<Coin> coinReturn, string display, List<Product> products)
+        public VendingMachine(decimal amountInserted, List<Coin> coinReturn, string display, List<Product> products, decimal totalAmount)
         {
             AmountInserted = amountInserted;
             CoinReturn = coinReturn;
             _display = display;
             Products = products;
+            _totalAmount = totalAmount;
         }
 
         public void AcceptCoins(List<Coin> coins)
@@ -109,6 +111,11 @@ namespace VendingMachineKata
 
         public string CheckDisplay()
         {
+            if (_totalAmount < Products.Max(x => x.Price))
+            {
+                return GlobalConstants.ExactChangeOnly;
+            }
+
             if (_display == GlobalConstants.ThankYou)
             {
                 AmountInserted = 0m;

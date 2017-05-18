@@ -24,5 +24,6 @@ namespace VendingMachineKata
         public const string ThankYou = "THANK YOU";
         public const string Price = "PRICE";
         public const string SoldOut = "SOLD OUT";
+        public const string ExactChangeOnly = "EXACT CHANGE ONLY";
     }
 }

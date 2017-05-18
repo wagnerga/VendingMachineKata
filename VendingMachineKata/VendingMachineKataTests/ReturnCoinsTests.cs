@@ -24,7 +24,7 @@ namespace VendingMachineKataTests
                 new Product("cola", 1m),
                 new Product("chips", .5m),
                 new Product("candy", .65m)
-            });
+            }, 1000m);
 
             colaCoins = new List<Coin>
             {

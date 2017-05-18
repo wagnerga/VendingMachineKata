@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VendingMachineKata;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Collections.Generic;
 namespace VendingMachineKataTests
 {
     [TestClass]
-    public class SoldOutTests
+    public class ExactChangeOnlyTests
     {
         private VendingMachine vendingMachine { get; set; }
         private List<Coin> colaCoins { get; set; }
@@ -21,8 +23,10 @@ namespace VendingMachineKataTests
         {
             vendingMachine = new VendingMachine(0m, new List<Coin>(), GlobalConstants.InsertCoin, new List<Product>
             {
-                new Product("cola", 1m)
-            }, 1000m);
+                new Product("cola", 1m),
+                new Product("chips", .5m),
+                new Product("candy", .65m)
+            }, .25m);
 
             colaCoins = new List<Coin>
             {
@@ -54,45 +58,11 @@ namespace VendingMachineKataTests
         }
 
         [TestMethod]
-        public void OutOfStockDisplaysSoldOutThenDisplaysInsertedAmountWhenAmountInserted()
+        public void DisplaysExactChangeOnlyWhenNotAbleToMakeChangeForAnyProducts()
         {
-            var product = new Product("candy", 0.65m);
+            var display = vendingMachine.CheckDisplay();
 
-            vendingMachine.AcceptCoins(colaCoins);
-
-            var display1 = vendingMachine.CheckDisplay();
-
-            Assert.AreEqual(colaCoinsAmount, display1);
-
-            var dispensedProduct = vendingMachine.SelectProduct(product);
-
-            Assert.AreEqual(null, dispensedProduct);
-
-            var display2 = vendingMachine.CheckDisplay();
-
-            Assert.AreEqual(GlobalConstants.SoldOut, display2);
-
-            var display3 = vendingMachine.CheckDisplay();
-
-            Assert.AreEqual(colaCoinsAmount, display3);
-        }
-
-        [TestMethod]
-        public void OutOfStockDisplaysSoldOutThenDisplaysInsertCoinWhenNoAmountInserted()
-        {
-            var product = new Product("chips", 0.5m);
-
-            var dispensedProduct = vendingMachine.SelectProduct(product);
-
-            Assert.AreEqual(null, dispensedProduct);
-
-            var display1 = vendingMachine.CheckDisplay();
-
-            Assert.AreEqual(GlobalConstants.SoldOut, display1);
-
-            var display2 = vendingMachine.CheckDisplay();
-
-            Assert.AreEqual(GlobalConstants.InsertCoin, display2);
+            Assert.AreEqual(GlobalConstants.ExactChangeOnly, display);
         }
     }
 }
