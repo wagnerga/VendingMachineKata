@@ -92,6 +92,12 @@ namespace VendingMachineKata
             return coins;
         }
 
+        public void ReturnCoins()
+        {
+            CoinReturn.AddRange(MakeChange(AmountInserted));
+            _display = GlobalConstants.InsertCoin;
+        }
+
         public string CheckDisplay()
         {
             if (_display == GlobalConstants.ThankYou)
