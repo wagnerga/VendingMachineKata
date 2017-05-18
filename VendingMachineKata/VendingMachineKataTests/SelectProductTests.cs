@@ -29,7 +29,7 @@ namespace VendingMachineKataTests
                 new Coin(GlobalConstants.QuarterGrams, GlobalConstants.QuarterDiameter)
             };
 
-            colaCoinsAmount = Helper.CalculateCurrentAmount(colaCoins).ToString("C");
+            colaCoinsAmount = Helper.CalculateAmount(colaCoins).ToString("C");
 
             chipCoins = new List<Coin>
             {
@@ -37,7 +37,7 @@ namespace VendingMachineKataTests
                 new Coin(GlobalConstants.QuarterGrams, GlobalConstants.QuarterDiameter)
             };
 
-            chipCoinsAmount = Helper.CalculateCurrentAmount(chipCoins).ToString("C");
+            chipCoinsAmount = Helper.CalculateAmount(chipCoins).ToString("C");
 
             candyCoins = new List<Coin>
             {
@@ -47,7 +47,7 @@ namespace VendingMachineKataTests
                 new Coin(GlobalConstants.NickelGrams, GlobalConstants.NickelDiameter)
             };
 
-            candyCoinsAmount = Helper.CalculateCurrentAmount(candyCoins).ToString("C");
+            candyCoinsAmount = Helper.CalculateAmount(candyCoins).ToString("C");
         }
 
         [TestMethod]
@@ -72,7 +72,7 @@ namespace VendingMachineKataTests
             var display3 = vendingMachine.CheckDisplay();
 
             Assert.AreEqual(GlobalConstants.InsertCoin, display3);
-            Assert.AreEqual(0m, vendingMachine.CurrentAmount);
+            Assert.AreEqual(0m, vendingMachine.AmountInserted);
         }
 
         [TestMethod]
@@ -97,7 +97,7 @@ namespace VendingMachineKataTests
             var display3 = vendingMachine.CheckDisplay();
 
             Assert.AreEqual(GlobalConstants.InsertCoin, display3);
-            Assert.AreEqual(0m, vendingMachine.CurrentAmount);
+            Assert.AreEqual(0m, vendingMachine.AmountInserted);
         }
 
         [TestMethod]
@@ -122,7 +122,7 @@ namespace VendingMachineKataTests
             var display3 = vendingMachine.CheckDisplay();
 
             Assert.AreEqual(GlobalConstants.InsertCoin, display3);
-            Assert.AreEqual(0m, vendingMachine.CurrentAmount);
+            Assert.AreEqual(0m, vendingMachine.AmountInserted);
         }
 
         [TestMethod]

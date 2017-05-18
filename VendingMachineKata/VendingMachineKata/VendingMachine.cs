@@ -8,13 +8,13 @@ namespace VendingMachineKata
 {
     public class VendingMachine
     {
-        public decimal CurrentAmount { get; set; }
+        public decimal AmountInserted { get; set; }
         public List<Coin> CoinReturn { get; set; }
         private string _display { get; set; }
 
-        public VendingMachine(decimal currentAmount, List<Coin> coinReturn, string display)
+        public VendingMachine(decimal amountInserted, List<Coin> coinReturn, string display)
         {
-            CurrentAmount = currentAmount;
+            AmountInserted = amountInserted;
             CoinReturn = coinReturn;
             _display = display;
         }
@@ -28,29 +28,33 @@ namespace VendingMachineKata
                 else
                 {
                     if (coin.IsQuarter())
-                        CurrentAmount += GlobalConstants.QuarterValue;
+                        AmountInserted += GlobalConstants.QuarterValue;
                     else if (coin.IsDime())
-                        CurrentAmount += GlobalConstants.DimeValue;
+                        AmountInserted += GlobalConstants.DimeValue;
                     else if (coin.IsNickel())
-                        CurrentAmount += GlobalConstants.NickelValue;
+                        AmountInserted += GlobalConstants.NickelValue;
                 }
             }
 
-            if (CurrentAmount == 0m)
+            if (AmountInserted == 0m)
                 _display = GlobalConstants.InsertCoin;
             else
-                _display = CurrentAmount.ToString("C");
+                _display = AmountInserted.ToString("C");
         }
 
         public Product SelectProduct(Product product)
         {
-            if (CurrentAmount == product.Price)
+            if (AmountInserted == product.Price)
             {
                 _display = GlobalConstants.ThankYou;
 
                 return product;
             }
-            else if (CurrentAmount < product.Price)
+            if (AmountInserted > product.Price)
+            {
+                CoinReturn.AddRange(MakeChange(AmountInserted - product.Price));
+            }
+            else if (AmountInserted < product.Price)
             {
                 _display = string.Format("{0} {1}", GlobalConstants.Price, product.Price.ToString("C"));
 
@@ -60,11 +64,39 @@ namespace VendingMachineKata
             return null;
         }
 
+        public List<Coin> MakeChange(decimal amount)
+        {
+            var coins = new List<Coin>();
+
+            var quarters = (int)Math.Floor(amount / GlobalConstants.QuarterValue);
+            amount %= GlobalConstants.QuarterValue;
+            var dimes = (int)Math.Floor(amount / GlobalConstants.DimeValue);
+            amount %= GlobalConstants.DimeValue;
+            var nickels = (int)Math.Floor(amount / GlobalConstants.NickelValue);
+
+            for (var i = 0; i < quarters; i++)
+            {
+                coins.Add(new Coin(GlobalConstants.QuarterGrams, GlobalConstants.QuarterDiameter));
+            }
+
+            for (var i = 0; i < dimes; i++)
+            {
+                coins.Add(new Coin(GlobalConstants.DimeGrams, GlobalConstants.DimeDiameter));
+            }
+
+            for (var i = 0; i < nickels; i++)
+            {
+                coins.Add(new Coin(GlobalConstants.NickelGrams, GlobalConstants.NickelDiameter));
+            }
+
+            return coins;
+        }
+
         public string CheckDisplay()
         {
             if (_display == GlobalConstants.ThankYou)
             {
-                CurrentAmount = 0m;
+                AmountInserted = 0m;
                 _display = GlobalConstants.InsertCoin;
 
                 return GlobalConstants.ThankYou;
@@ -74,10 +106,10 @@ namespace VendingMachineKata
             {
                 var displayCopy = _display;
 
-                if (CurrentAmount == 0m)
+                if (AmountInserted == 0m)
                     _display = GlobalConstants.InsertCoin;
                 else
-                    _display = CurrentAmount.ToString("C");
+                    _display = AmountInserted.ToString("C");
 
                 return displayCopy;
             }

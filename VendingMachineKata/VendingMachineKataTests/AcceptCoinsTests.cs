@@ -25,7 +25,7 @@ namespace VendingMachineKataTests
                 new Coin(GlobalConstants.NickelGrams, GlobalConstants.NickelDiameter)
             };
 
-            validCoinsAmount = Helper.CalculateCurrentAmount(validCoins).ToString("C");
+            validCoinsAmount = Helper.CalculateAmount(validCoins).ToString("C");
 
             invalidCoins = new List<Coin>
             {

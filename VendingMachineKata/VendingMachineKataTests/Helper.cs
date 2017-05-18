@@ -10,21 +10,21 @@ namespace VendingMachineKataTests
 {
     public static class Helper
     {
-        public static decimal CalculateCurrentAmount(List<Coin> validCoins)
+        public static decimal CalculateAmount(List<Coin> validCoins)
         {
-            var currentAmount = 0m;
+            var amount = 0m;
 
             foreach (var coin in validCoins)
             {
                 if (coin.IsQuarter())
-                    currentAmount += GlobalConstants.QuarterValue;
+                    amount += GlobalConstants.QuarterValue;
                 else if (coin.IsDime())
-                    currentAmount += GlobalConstants.DimeValue;
+                    amount += GlobalConstants.DimeValue;
                 else if (coin.IsNickel())
-                    currentAmount += GlobalConstants.NickelValue;
+                    amount += GlobalConstants.NickelValue;
             }
 
-            return currentAmount;
+            return amount;
         }
     }
 }
