@@ -1,29 +1,26 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using VendingMachineKata;
 using System.Collections.Generic;
 
 namespace VendingMachineKataTests
 {
-    [TestClass]
+    [TestFixture]
     public class SelectProductTests
     {
         private VendingMachine vendingMachine { get; set; }
         private List<Coin> colaCoins { get; set; }
-        private string colaCoinsAmount { get; set; }
         private List<Coin> chipCoins { get; set; }
-        private string chipCoinsAmount { get; set; }
         private List<Coin> candyCoins { get; set; }
-        private string candyCoinsAmount { get; set; }
 
-        [TestInitialize()]
+        [SetUp]
         public void Initialize()
         {
-            vendingMachine = new VendingMachine(0m, new List<Coin>(), GlobalConstants.InsertCoin, new List<Product>{
-                new Product("cola", 1m),
-                new Product("chips", .5m),
-                new Product("candy", .65m)
-            }, 1000m);
+            vendingMachine = new VendingMachine(0m,
+                new List<Coin>(),
+                GlobalConstants.InsertCoin,
+                new List<Product> { new Product("cola", 1m), new Product("chips", .5m), new Product("candy", .65m) },
+                1000m);
 
             colaCoins = new List<Coin>
             {
@@ -33,15 +30,11 @@ namespace VendingMachineKataTests
                 new Coin(GlobalConstants.QuarterGrams, GlobalConstants.QuarterDiameter)
             };
 
-            colaCoinsAmount = Helper.CalculateAmount(colaCoins).ToString("C");
-
             chipCoins = new List<Coin>
             {
                 new Coin(GlobalConstants.QuarterGrams, GlobalConstants.QuarterDiameter),
                 new Coin(GlobalConstants.QuarterGrams, GlobalConstants.QuarterDiameter)
             };
-
-            chipCoinsAmount = Helper.CalculateAmount(chipCoins).ToString("C");
 
             candyCoins = new List<Coin>
             {
@@ -50,11 +43,9 @@ namespace VendingMachineKataTests
                 new Coin(GlobalConstants.DimeGrams, GlobalConstants.DimeDiameter),
                 new Coin(GlobalConstants.NickelGrams, GlobalConstants.NickelDiameter)
             };
-
-            candyCoinsAmount = Helper.CalculateAmount(candyCoins).ToString("C");
         }
 
-        [TestMethod]
+        [Test]
         public void SelectColaWithExactPriceReturnsColaThenDisplaysThankYouThenDisplaysInsertCoinAndSetsCurrentAmountToZero()
         {
             var product = new Product("cola", 1.00m);
@@ -63,7 +54,7 @@ namespace VendingMachineKataTests
 
             var display1 = vendingMachine.CheckDisplay();
 
-            Assert.AreEqual(colaCoinsAmount, display1);
+            Assert.AreEqual(vendingMachine.CalculateAmount(colaCoins).ToString("C"), display1);
 
             var dispensedProduct = vendingMachine.SelectProduct(product);
 
@@ -79,7 +70,7 @@ namespace VendingMachineKataTests
             Assert.AreEqual(0m, vendingMachine.AmountInserted);
         }
 
-        [TestMethod]
+        [Test]
         public void SelectChipsWithExactPriceReturnsChipsThenDisplaysThankYouThenDisplaysInsertCoinAndSetsCurrentAmountToZero()
         {
             var product = new Product("chips", 0.50m);
@@ -88,7 +79,7 @@ namespace VendingMachineKataTests
 
             var display1 = vendingMachine.CheckDisplay();
 
-            Assert.AreEqual(chipCoinsAmount, display1);
+            Assert.AreEqual(vendingMachine.CalculateAmount(chipCoins).ToString("C"), display1);
 
             var dispensedProduct = vendingMachine.SelectProduct(product);
 
@@ -104,7 +95,7 @@ namespace VendingMachineKataTests
             Assert.AreEqual(0m, vendingMachine.AmountInserted);
         }
 
-        [TestMethod]
+        [Test]
         public void SelectCandyWithExactPriceReturnsCandyThenDisplaysThankYouThenDisplaysInsertCoinAndSetsCurrentAmountToZero()
         {
             var product = new Product("candy", 0.65m);
@@ -113,7 +104,7 @@ namespace VendingMachineKataTests
 
             var display1 = vendingMachine.CheckDisplay();
 
-            Assert.AreEqual(candyCoinsAmount, display1);
+            Assert.AreEqual(vendingMachine.CalculateAmount(candyCoins).ToString("C"), display1);
 
             var dispensedProduct = vendingMachine.SelectProduct(product);
 
@@ -129,7 +120,7 @@ namespace VendingMachineKataTests
             Assert.AreEqual(0m, vendingMachine.AmountInserted);
         }
 
-        [TestMethod]
+        [Test]
         public void SelectCandyWithNotEnoughMoneyDisplaysCandyPriceThenDisplaysCurrentAmount()
         {
             var product = new Product("candy", 0.65m);
@@ -138,7 +129,7 @@ namespace VendingMachineKataTests
 
             var display1 = vendingMachine.CheckDisplay();
 
-            Assert.AreEqual(chipCoinsAmount, display1);
+            Assert.AreEqual(vendingMachine.CalculateAmount(chipCoins).ToString("C"), display1);
 
             var dispensedProduct = vendingMachine.SelectProduct(product);
 
@@ -146,11 +137,11 @@ namespace VendingMachineKataTests
 
             var display2 = vendingMachine.CheckDisplay();
 
-            Assert.AreEqual(string.Format("{0} {1}", GlobalConstants.Price, candyCoinsAmount), display2);
+            Assert.AreEqual(string.Format("{0} {1}", GlobalConstants.Price, vendingMachine.CalculateAmount(candyCoins).ToString("C")), display2);
 
             var display3 = vendingMachine.CheckDisplay();
 
-            Assert.AreEqual(chipCoinsAmount, display3);
+            Assert.AreEqual(vendingMachine.CalculateAmount(chipCoins).ToString("C"), display3);
         }
     }
 }

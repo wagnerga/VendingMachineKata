@@ -25,25 +25,30 @@ namespace VendingMachineKata
 
         public void AcceptCoins(List<Coin> coins)
         {
-            foreach (var coin in coins)
+            var validCoins = coins.Where(x => IsValidCoin(x)).ToList();
+
+            CoinReturn.AddRange(coins.Where(x => !IsValidCoin(x)).ToList());
+
+            AmountInserted = CalculateAmount(validCoins);
+
+            AdjustDisplayBasedOffAmountInserted();
+        }
+
+        public decimal CalculateAmount(List<Coin> validCoins)
+        {
+            var amount = 0m;
+
+            foreach (var coin in validCoins)
             {
-                if (!IsValidCoin(coin))
-                    CoinReturn.Add(coin);
-                else
-                {
-                    if (coin.IsQuarter())
-                        AmountInserted += GlobalConstants.QuarterValue;
-                    else if (coin.IsDime())
-                        AmountInserted += GlobalConstants.DimeValue;
-                    else if (coin.IsNickel())
-                        AmountInserted += GlobalConstants.NickelValue;
-                }
+                if (coin.IsQuarter())
+                    amount += GlobalConstants.QuarterValue;
+                else if (coin.IsDime())
+                    amount += GlobalConstants.DimeValue;
+                else if (coin.IsNickel())
+                    amount += GlobalConstants.NickelValue;
             }
 
-            if (AmountInserted == 0m)
-                _display = GlobalConstants.InsertCoin;
-            else
-                _display = AmountInserted.ToString("C");
+            return amount;
         }
 
         public Product SelectProduct(Product product)
@@ -112,9 +117,7 @@ namespace VendingMachineKata
         public string CheckDisplay()
         {
             if (_totalAmount < Products.Max(x => x.Price))
-            {
                 return GlobalConstants.ExactChangeOnly;
-            }
 
             if (_display == GlobalConstants.ThankYou)
             {
