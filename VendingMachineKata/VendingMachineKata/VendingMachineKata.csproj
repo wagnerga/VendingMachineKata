@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Coin.cs" />
     <Compile Include="GlobalConstants.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="VendingMachine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

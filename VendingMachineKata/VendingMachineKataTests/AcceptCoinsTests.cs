@@ -11,12 +11,12 @@ namespace VendingMachineKataTests
         private VendingMachine vendingMachine { get; set; }
         private List<Coin> validCoins { get; set; }
         private List<Coin> invalidCoins { get; set; }
-        private string validCoinsValue { get; set; }
+        private string validCoinsAmount { get; set; }
 
         [TestInitialize()]
         public void Initialize()
         {
-            vendingMachine = new VendingMachine(new List<Coin>());
+            vendingMachine = new VendingMachine(0m, new List<Coin>(), GlobalConstants.InsertCoin);
 
             validCoins = new List<Coin>
             {
@@ -25,7 +25,7 @@ namespace VendingMachineKataTests
                 new Coin(GlobalConstants.NickelGrams, GlobalConstants.NickelDiameter)
             };
 
-            validCoinsValue = (GlobalConstants.QuarterValue + GlobalConstants.DimeValue + GlobalConstants.NickelValue).ToString("C");
+            validCoinsAmount = Helper.CalculateCurrentAmount(validCoins).ToString("C");
 
             invalidCoins = new List<Coin>
             {
@@ -38,9 +38,9 @@ namespace VendingMachineKataTests
         [TestMethod]
         public void DisplaysInsertCoinWhenNoCoinsInserted()
         {
-            var display = vendingMachine.GetDisplay();
+            var display = vendingMachine.CheckDisplay();
 
-            Assert.AreEqual(display, GlobalConstants.NoCoinsDisplay);
+            Assert.AreEqual(GlobalConstants.InsertCoin, display);
         }
 
         [TestMethod]
@@ -48,9 +48,9 @@ namespace VendingMachineKataTests
         {
             vendingMachine.AcceptCoins(validCoins);
 
-            var display = vendingMachine.GetDisplay();
+            var display = vendingMachine.CheckDisplay();
 
-            Assert.AreEqual(display, validCoinsValue);
+            Assert.AreEqual(validCoinsAmount, display);
         }
 
         [TestMethod]
@@ -58,9 +58,9 @@ namespace VendingMachineKataTests
         {
             vendingMachine.AcceptCoins(invalidCoins);
 
-            var display = vendingMachine.GetDisplay();
+            var display = vendingMachine.CheckDisplay();
 
-            Assert.AreEqual(display, GlobalConstants.NoCoinsDisplay);
+            Assert.AreEqual(GlobalConstants.InsertCoin, display);
             CollectionAssert.AreEqual(invalidCoins, vendingMachine.CoinReturn);
         }
 
@@ -70,9 +70,9 @@ namespace VendingMachineKataTests
             vendingMachine.AcceptCoins(invalidCoins);
             vendingMachine.AcceptCoins(validCoins);
 
-            var display = vendingMachine.GetDisplay();
+            var display = vendingMachine.CheckDisplay();
 
-            Assert.AreEqual(display, validCoinsValue);
+            Assert.AreEqual(validCoinsAmount, display);
             CollectionAssert.AreEqual(invalidCoins, vendingMachine.CoinReturn);
         }
     }

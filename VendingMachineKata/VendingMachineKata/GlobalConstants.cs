@@ -20,6 +20,8 @@ namespace VendingMachineKata
         public const decimal DimeValue = 0.10m;
         public const decimal NickelValue = 0.05m;
 
-        public const string NoCoinsDisplay = "INSERT COIN";
+        public const string InsertCoin = "INSERT COIN";
+        public const string ThankYou = "THANK YOU";
+        public const string Price = "PRICE";
     }
 }

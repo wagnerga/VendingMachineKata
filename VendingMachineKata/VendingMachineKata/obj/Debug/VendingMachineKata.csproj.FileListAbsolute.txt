@@ -2,3 +2,7 @@ c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata
 c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKata\bin\Debug\VendingMachineKata.pdb
 c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKata\obj\Debug\VendingMachineKata.dll
 c:\users\wagne\onedrive\documents\visual studio 2013\Projects\VendingMachineKata\VendingMachineKata\obj\Debug\VendingMachineKata.pdb
+C:\Users\wagne\OneDrive\Documents\git\VendingMachineKata\VendingMachineKata\VendingMachineKata\obj\Debug\VendingMachineKata.dll
+C:\Users\wagne\OneDrive\Documents\git\VendingMachineKata\VendingMachineKata\VendingMachineKata\bin\Debug\VendingMachineKata.dll
+C:\Users\wagne\OneDrive\Documents\git\VendingMachineKata\VendingMachineKata\VendingMachineKata\bin\Debug\VendingMachineKata.pdb
+C:\Users\wagne\OneDrive\Documents\git\VendingMachineKata\VendingMachineKata\VendingMachineKata\obj\Debug\VendingMachineKata.pdb
