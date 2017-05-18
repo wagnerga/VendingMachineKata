@@ -19,7 +19,11 @@ namespace VendingMachineKataTests
         [TestInitialize()]
         public void Initialize()
         {
-            vendingMachine = new VendingMachine(0m, new List<Coin>(), GlobalConstants.InsertCoin);
+            vendingMachine = new VendingMachine(0m, new List<Coin>(), GlobalConstants.InsertCoin, new List<Product>{
+                new Product("cola", 1m),
+                new Product("chips", .5m),
+                new Product("candy", .65m)
+            });
 
             colaCoins = new List<Coin>
             {

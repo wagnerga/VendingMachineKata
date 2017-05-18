@@ -11,12 +11,14 @@ namespace VendingMachineKata
         public decimal AmountInserted { get; set; }
         public List<Coin> CoinReturn { get; set; }
         private string _display { get; set; }
+        public List<Product> Products { get; set; }
 
-        public VendingMachine(decimal amountInserted, List<Coin> coinReturn, string display)
+        public VendingMachine(decimal amountInserted, List<Coin> coinReturn, string display, List<Product> products)
         {
             AmountInserted = amountInserted;
             CoinReturn = coinReturn;
             _display = display;
+            Products = products;
         }
 
         public void AcceptCoins(List<Coin> coins)
@@ -44,21 +46,28 @@ namespace VendingMachineKata
 
         public Product SelectProduct(Product product)
         {
-            if (AmountInserted == product.Price)
+            if (Products.Exists(x => x.Name == product.Name))
             {
-                _display = GlobalConstants.ThankYou;
+                if (AmountInserted == product.Price)
+                {
+                    _display = GlobalConstants.ThankYou;
 
-                return product;
-            }
-            if (AmountInserted > product.Price)
-            {
-                CoinReturn.AddRange(MakeChange(AmountInserted - product.Price));
-            }
-            else if (AmountInserted < product.Price)
-            {
-                _display = string.Format("{0} {1}", GlobalConstants.Price, product.Price.ToString("C"));
+                    return product;
+                }
+                if (AmountInserted > product.Price)
+                {
+                    CoinReturn.AddRange(MakeChange(AmountInserted - product.Price));
+                }
+                else if (AmountInserted < product.Price)
+                {
+                    _display = string.Format("{0} {1}", GlobalConstants.Price, product.Price.ToString("C"));
 
-                return null;
+                    return null;
+                }
+            }
+            else
+            {
+                _display = GlobalConstants.SoldOut;
             }
 
             return null;
@@ -112,15 +121,27 @@ namespace VendingMachineKata
             {
                 var displayCopy = _display;
 
-                if (AmountInserted == 0m)
-                    _display = GlobalConstants.InsertCoin;
-                else
-                    _display = AmountInserted.ToString("C");
+                AdjustDisplayBasedOffAmountInserted();
 
                 return displayCopy;
             }
 
+            if (_display.Contains(GlobalConstants.SoldOut))
+            {
+                AdjustDisplayBasedOffAmountInserted();
+
+                return GlobalConstants.SoldOut;
+            }
+
             return _display;
+        }
+
+        private void AdjustDisplayBasedOffAmountInserted()
+        {
+            if (AmountInserted == 0m)
+                _display = GlobalConstants.InsertCoin;
+            else
+                _display = AmountInserted.ToString("C");
         }
 
         public bool IsValidCoin(Coin coin)

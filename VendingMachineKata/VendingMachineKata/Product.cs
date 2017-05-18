@@ -8,12 +8,12 @@ namespace VendingMachineKata
 {
     public class Product
     {
-        private string _name { get; set; }
+        public string Name { get; set; }
         public decimal Price { get; set; }
 
         public Product(string name, decimal price)
         {
-            _name = name;
+            Name = name;
             Price = price;
         }
     }

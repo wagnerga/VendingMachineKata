@@ -23,5 +23,6 @@ namespace VendingMachineKata
         public const string InsertCoin = "INSERT COIN";
         public const string ThankYou = "THANK YOU";
         public const string Price = "PRICE";
+        public const string SoldOut = "SOLD OUT";
     }
 }

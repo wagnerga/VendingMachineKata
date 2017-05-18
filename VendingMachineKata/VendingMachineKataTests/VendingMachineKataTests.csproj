@@ -56,6 +56,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReturnCoinsTests.cs" />
     <Compile Include="SelectProductTests.cs" />
+    <Compile Include="SoldOutTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VendingMachineKata\VendingMachineKata.csproj">
